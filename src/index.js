@@ -38,6 +38,7 @@ fetchBreeds()
 
 function onChangeSelect(e) {
   const idCatImg = e.target.value;
+  refs.catContainer.style.display = 'none';
 
   Loading.dots({
     svgColor: '#5897fb',

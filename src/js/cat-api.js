@@ -28,26 +28,20 @@ import axios, { Axios } from 'axios';
 const API_KEY =
   'live_t7hvFY2wyGskGlHcbSlJCijyt9wCWNlGwztdmq7Up8qt8DFFkQCNMfS04VKri8hQ';
 
+const BASE_URL = 'https://api.thecatapi.com/v1';
+
 axios.defaults.headers.common['x-api-key'] = API_KEY;
 
-function fetchBreeds() {
-  const BASE_URL = `https://api.thecatapi.com/v1/breeds`;
-  return axios.get(BASE_URL).then(response => {
-    if (response.status !== 200) {
-      throw new Error(response.statusText);
-    }
+export function fetchBreeds() {
+  return axios.get(`${BASE_URL}/breeds`).then(response => {
     return response.data;
   });
 }
 
-function fetchCatByBreed(breedId) {
-  const ID_REQUEST = 'https://api.thecatapi.com/v1/images/search?breed_ids';
-  return axios.get(`${ID_REQUEST}=${breedId}`).then(response => {
-    if (response.status !== 200) {
-      throw new Error(response.statusText);
-    }
-    return response.data[0];
-  });
+export function fetchCatByBreed(breedId) {
+  return axios
+    .get(`${BASE_URL}/images/search?breed_ids=${breedId}`)
+    .then(response => {
+      return response.data[0];
+    });
 }
-
-export { fetchBreeds, fetchCatByBreed };
